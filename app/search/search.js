@@ -17,6 +17,8 @@ angular.module('myApp.search', ['ngRoute'])
         vm.detailedSearchResults = [];
 
         vm.searchProducts = function() {
+            vm.detailedSearchResults = [];
+            vm.loading = true;
           dataService.getSearch(vm.searchQuery)
               .then(function(result){
                   var searchResults = result.data.items;
@@ -35,6 +37,7 @@ angular.module('myApp.search', ['ngRoute'])
                       }
 
                       if (!throttleNeeded) {
+                          vm.loading = false;
                           vm.detailedSearchResults = retArr;
                       } else {
                           $timeout( function(){
@@ -46,6 +49,7 @@ angular.module('myApp.search', ['ngRoute'])
                                   for (var i = 0; i< ret.length; i++){
                                       retArr.push(ret[i].data);
                                   }
+                                  vm.loading = false;
                                   vm.detailedSearchResults = retArr;
 
                               }, function(error){
@@ -57,7 +61,7 @@ angular.module('myApp.search', ['ngRoute'])
                   }, function(error){
                       console.log('Could not fetch detailed search results: ' + JSON.stringify(error));
                   });
-                  
+
               }, function(error){
                   console.log('Could not perform search: ' + JSON.stringify(error));
               })
