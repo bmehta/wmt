@@ -1,7 +1,7 @@
 'use strict';
 
 // Service to return data from numbers http server
-angular.module('myApp.cacheservice',[])
+angular.module('myApp.service')
     .factory('cacheService', [function() {
 
         var cacheService = {};

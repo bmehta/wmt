@@ -10,8 +10,7 @@ TODO
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
   'ngRoute',
-    'myApp.dataservice',
-    'myApp.cacheservice',
+    'myApp.service',
     'myApp.search',
     'myApp.detail'
 ]).

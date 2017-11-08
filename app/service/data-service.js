@@ -1,7 +1,7 @@
 'use strict';
 
 // Service to return data from numbers http server
-angular.module('myApp.dataservice',[])
+angular.module('myApp.service',[])
     .factory('dataService', ['$http', function($http) {
 
         var urlBase = 'http://api.walmartlabs.com/v1';
