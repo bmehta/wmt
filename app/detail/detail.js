@@ -14,8 +14,17 @@ angular.module('myApp.detail', ['ngRoute'])
         var itemId = parseInt($routeParams.itemid);
         console.log('itemid: ' + itemId);
         vm.searchResult = {};
+        vm.recommendations = [];
 
-        
+        vm.getRecommendations = function() {
+            dataService.getRecommendations(vm.searchResult.itemId)
+                .then(function(res){
+                    vm.recommendations = res.data;
+                }, function(error){
+                    console.error('Could not get recommendations: ' + JSON.stringify(error));
+                })
+        };
+
         vm.init = function() {
             vm.searchResult = cacheService.getSearchResult(itemId);
             console.log('searchResult: ' + JSON.stringify(vm.searchResult));
@@ -37,10 +46,6 @@ angular.module('myApp.detail', ['ngRoute'])
         };
 
         vm.init();
-        
-        vm.getRecommendations = function() {
-            
-        };
 
         vm.renderHTML = function(html_code){
             var decoded = angular.element('<textarea />').html(html_code).text();

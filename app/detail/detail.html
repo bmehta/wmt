@@ -9,4 +9,13 @@
         <div>Description:</div>
         <div ng-bind-html="vm.renderHTML(vm.searchResult.longDescription)"></div>
     </div>
+    <div ng-if="vm.recommendations.length > 0">
+        <div>Recommendations</div>
+        <div ng-repeat="recommendation in vm.recommendations" style="border: 1px solid darkgray">
+            <a ng-href="#!/detail/{{recommendation.itemId}}">
+                <span ng-click="detail">Name: {{recommendation.name}}</span>
+                <span>Sale Price: {{recommendation.salePrice}}</span>
+            </a>
+        </div>
+    </div>
 </div>
