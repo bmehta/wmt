@@ -9,7 +9,7 @@ angular.module('myApp.search', ['ngRoute'])
         });
     }])
 
-    .controller('SearchCtrl', ['$scope', '$http', '$q', '$timeout', 'dataService', function ($scope, $http, $q, $timeout, dataService) {
+    .controller('SearchCtrl', ['$scope', '$http', '$q', '$timeout', 'dataService', 'cacheService', function ($scope, $http, $q, $timeout, dataService, cacheService) {
         var vm = this;
         vm.loading = false;
         vm.searchQuery = '';
@@ -23,7 +23,7 @@ angular.module('myApp.search', ['ngRoute'])
               .then(function(result){
                   var searchResults = result.data.items;
 
-                  var throttleNeeded = searchResults.length > 5;
+                  var throttleNeeded = searchResults.length > 5; // Add throttle because walmart apis only allow 5 requests per second
                   var loopSize = throttleNeeded? 5: searchResults.length;
 
                   var searchResultHttp = [];
@@ -39,6 +39,7 @@ angular.module('myApp.search', ['ngRoute'])
                       if (!throttleNeeded) {
                           vm.loading = false;
                           vm.detailedSearchResults = retArr;
+                          cacheService.addSearchResults(retArr);
                       } else {
                           $timeout( function(){
                               var searchResultHttp2 = [];
@@ -51,11 +52,12 @@ angular.module('myApp.search', ['ngRoute'])
                                   }
                                   vm.loading = false;
                                   vm.detailedSearchResults = retArr;
+                                  cacheService.addSearchResults(retArr);
 
                               }, function(error){
                                   console.log('Could not fetch detailed search results: ' + JSON.stringify(error));
                               });
-                          }, 1000 );
+                          }, 2000 );
                       }
 
                   }, function(error){
