@@ -3,20 +3,10 @@
 <div></div>
 <div>
     <div>
-        In product details
+        <div>Product Details</div>
+        <div>Name: {{vm.searchResult.name}}</div>
+        <div>Price: {{vm.searchResult.salePrice}}</div>
+        <div>Description:</div>
+        <div ng-bind-html="vm.renderHTML(vm.searchResult.longDescription)"></div>
     </div>
-    <!--
-    <div>
-        <span><input type="text" ng-model="vm.searchQuery"/></span>
-        <span>
-            <button id="btnSearch" ng-click="vm.searchProducts()">Search</button>
-        </span>
-    </div>
-    <div class="div-space align-center">
-        <div ng-repeat="searchResult in vm.detailedSearchResults" style="border: 1px solid darkgray">
-            <span ng-click="detail">Name: {{searchResult.name}}</span>
-            <span>Sale Price: {{searchResult.salePrice}}</span>
-        </div>
-    </div>
-    -->
 </div>

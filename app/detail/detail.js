@@ -9,23 +9,42 @@ angular.module('myApp.detail', ['ngRoute'])
         });
     }])
 
-    .controller('DetailCtrl', ['$scope', '$q', 'dataService', 'cacheService', '$routeParams', function ($scope, $q, dataService, cacheService, $routeParams) {
+    .controller('DetailCtrl', ['$scope', '$sce', 'dataService', 'cacheService', '$routeParams', function ($scope, $sce, dataService, cacheService, $routeParams) {
         var vm = this;
-        alert(JSON.stringify($routeParams));
         var itemId = parseInt($routeParams.itemid);
         console.log('itemid: ' + itemId);
+        vm.searchResult = {};
 
-        var searchResult = cacheService.getSearchResult(itemId);
-        console.log('searchResult: ' + JSON.stringify(searchResult));
-        if (!searchResult){
-            dataService.getProductDetail(itemId)
-                .then(function(result){
-                    searchResult = result.data;
-                    console.log('searchResult: ' + JSON.stringify(searchResult));
-                }, function(error){
-                    console.error('Could not get product detail: ' + JSON.stringify(error));
-                });
+        
+        vm.init = function() {
+            vm.searchResult = cacheService.getSearchResult(itemId);
+            console.log('searchResult: ' + JSON.stringify(vm.searchResult));
+            if (!vm.searchResult) {
+                dataService.getProductDetail(itemId)
+                    .then(function (result) {
+                        vm.searchResult = result.data;
+                        vm.getRecommendations();
+                        console.log('searchResult: ' + JSON.stringify(vm.searchResult));
+                    }, function (error) {
+                        console.error('Could not get product detail: ' + JSON.stringify(error));
+                    });
+            }
+            else{
+                console.log('searchResult: ' + JSON.stringify(vm.searchResult));
+                vm.getRecommendations();
+            }
+            
+        };
+
+        vm.init();
+        
+        vm.getRecommendations = function() {
+            
+        };
+
+        vm.renderHTML = function(html_code){
+            var decoded = angular.element('<textarea />').html(html_code).text();
+            return $sce.trustAsHtml(decoded);
         }
-        console.log('searchResult: ' + JSON.stringify(searchResult));
 
     }]);
