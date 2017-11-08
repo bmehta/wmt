@@ -7,8 +7,18 @@ angular.module('myApp.service')
         var cacheService = {};
         var searchResults = [];
         var searchResultsMap = new Map();
+        var searchTerm = '';
+
+        cacheService.addSearchTerm = function(search) {
+          searchTerm = search;
+        };
+
+        cacheService.getSearchTerm = function() {
+            return searchTerm;
+        };
 
         cacheService.addSearchResults = function(results) {
+            searchResults = results;
             for (var i =0; i< results.length; i++){
                 searchResultsMap.set(results[i].itemId, results[i]);
             }
@@ -23,7 +33,7 @@ angular.module('myApp.service')
         };
 
         cacheService.getSearchResult = function(itemId){
-            searchResultsMap.get(itemId);
+            return searchResultsMap.get(itemId);
         };
 
         return cacheService;

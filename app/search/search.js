@@ -12,9 +12,9 @@ angular.module('myApp.search', ['ngRoute'])
     .controller('SearchCtrl', ['$scope', '$http', '$q', '$timeout', 'dataService', 'cacheService', function ($scope, $http, $q, $timeout, dataService, cacheService) {
         var vm = this;
         vm.loading = false;
-        vm.searchQuery = '';
+        vm.searchQuery = cacheService.getSearchTerm();
         //vm.searchResults = [];
-        vm.detailedSearchResults = [];
+        vm.detailedSearchResults = cacheService.getSearchResults();
 
         vm.searchProducts = function() {
             vm.detailedSearchResults = [];
@@ -40,6 +40,7 @@ angular.module('myApp.search', ['ngRoute'])
                           vm.loading = false;
                           vm.detailedSearchResults = retArr;
                           cacheService.addSearchResults(retArr);
+                          cacheService.addSearchTerm(vm.searchQuery);
                       } else {
                           $timeout( function(){
                               var searchResultHttp2 = [];
@@ -53,6 +54,7 @@ angular.module('myApp.search', ['ngRoute'])
                                   vm.loading = false;
                                   vm.detailedSearchResults = retArr;
                                   cacheService.addSearchResults(retArr);
+                                  cacheService.addSearchTerm(vm.searchQuery);
 
                               }, function(error){
                                   console.log('Could not fetch detailed search results: ' + JSON.stringify(error));
