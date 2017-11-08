@@ -11,6 +11,18 @@
     <div ng-if="vm.loading">
         Loading Results....
     </div>
+    <div ng-if="!vm.loading">
+        <div ng-repeat="searchResult in vm.detailedSearchResults" class="media" >
+            <div class="media-left">
+                <a href="#!/detail/{{searchResult.itemId}}"><img class="media-object" src="{{searchResult.thumbnailImage}}"></a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading"><a href="#!/detail/{{searchResult.itemId}}">{{searchResult.name}}</a></h4>
+                {{searchResult.salePrice}}
+            </div>
+        </div>
+    </div>
+    <!--
     <div class="div-space align-center" ng-if="!vm.loading">
         <div ng-repeat="searchResult in vm.detailedSearchResults" style="border: 1px solid darkgray">
             <a ng-href="#!/detail/{{searchResult.itemId}}">
@@ -19,4 +31,6 @@
             </a>
         </div>
     </div>
+    -->
+
 </div>
