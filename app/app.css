@@ -1,0 +1,12 @@
+/* app css stylesheet */
+
+body{
+  margin:20px;
+  font-size: 0.8em;
+  font-family: Arial;
+  color: #003cb3;
+}
+
+.div-space{
+  margin-top:10px;
+}
