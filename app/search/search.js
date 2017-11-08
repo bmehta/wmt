@@ -36,29 +36,28 @@ angular.module('myApp.search', ['ngRoute'])
 
                       if (!throttleNeeded) {
                           vm.detailedSearchResults = retArr;
+                      } else {
+                          $timeout( function(){
+                              var searchResultHttp2 = [];
+                              for (var i=5; i< searchResults.length; i++) {
+                                  searchResultHttp2.push(dataService.getProductDetail(searchResults[i].itemId));
+                              }
+                              $q.all(searchResultHttp2).then(function (ret) {
+                                  for (var i = 0; i< ret.length; i++){
+                                      retArr.push(ret[i].data);
+                                  }
+                                  vm.detailedSearchResults = retArr;
+
+                              }, function(error){
+                                  console.log('Could not fetch detailed search results: ' + JSON.stringify(error));
+                              });
+                          }, 1000 );
                       }
 
                   }, function(error){
                       console.log('Could not fetch detailed search results: ' + JSON.stringify(error));
                   });
-
-                  if (throttleNeeded) {
-                      $timeout( function(){
-                          var searchResultHttp2 = [];
-                          for (var i=5; i< searchResults.length; i++) {
-                              searchResultHttp2.push(dataService.getProductDetail(searchResults[i].itemId));
-                          }
-                          $q.all(searchResultHttp2).then(function (ret) {
-                              for (var i = 0; i< ret.length; i++){
-                                  retArr.push(ret[i].data);
-                              }
-                              vm.detailedSearchResults = retArr;
-
-                          }, function(error){
-                              console.log('Could not fetch detailed search results: ' + JSON.stringify(error));
-                          });
-                      }, 1000 );
-                  }
+                  
               }, function(error){
                   console.log('Could not perform search: ' + JSON.stringify(error));
               })
