@@ -9,10 +9,13 @@ angular.module('myApp.detail', ['ngRoute'])
         });
     }])
 
-    .controller('DetailCtrl', ['$scope', '$q', 'dataService', '$routeParams', function ($scope, $q, dataService, $routeParams) {
+    .controller('DetailCtrl', ['$scope', '$q', 'dataService', 'cacheService', '$routeParams', function ($scope, $q, dataService, cacheService, $routeParams) {
         var vm = this;
         alert(JSON.stringify($routeParams));
         var itemId = $routeParams.itemid;
         console.log('itemid: ' + itemId);
+
+        var searchResult = cacheService.getSearchResult(itemId);
+        console.log('searchResult: ' + JSON.stringify(searchResult));
 
     }]);

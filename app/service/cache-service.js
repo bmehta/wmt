@@ -1,22 +1,30 @@
 'use strict';
 
 // Service to return data from numbers http server
-angular.module('myApp.service',[])
-    .factory('cacheService', ['$http', function($http) {
+angular.module('myApp.cacheservice',[])
+    .factory('cacheService', [function() {
 
+        var cacheService = {};
         var searchResults = [];
+        var searchResultsMap = new Map();
 
-        dataService.addSearchResults = function(results) {
-            searchResults =  results;
+        cacheService.addSearchResults = function(results) {
+            for (var i =0; i< results.length; i++){
+                searchResultsMap.set(results[i].itemId, results[i]);
+            }
         };
 
-        dataService.containsSearchResults = function(){
+        cacheService.containsSearchResults = function(){
             return searchResults.length > 0;
         };
 
-        dataService.getSearchResults = function(){
+        cacheService.getSearchResults = function(){
             return searchResults;
         };
 
-        return dataService;
+        cacheService.getSearchResult = function(itemId){
+            searchResultsMap.get(itemId);
+        };
+
+        return cacheService;
     }]);
