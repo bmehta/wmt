@@ -56,12 +56,17 @@ Now browse to the app at [`localhost:8000/index.html`][local-app-url].
 app/                    --> all of the source files for the application
   app.css               --> default stylesheet
   service/           --> all app specific services
+      cache-service.js     --> caching service
       data-service.js      --> data service
       data-service_test.js --> tests for the data service
-  view/                --> the view view template and logic
-    view.html            --> the partial template
-    view.js              --> the controller logic
-    view_test.js         --> tests of the controller
+  detail/                --> the detail view template and logic
+    detail.html            --> the partial template
+    detail.js              --> the controller logic
+    detail_test.js         --> tests of the controller
+  search/                --> the search view template and logic
+     search.html            --> the partial template
+     search.js              --> the controller logic
+     search_test.js         --> tests of the controller
   app.js                --> main application module
   index.html            --> app layout file (the main html template file of the app)
 karma.conf.js         --> config file for running unit tests with Karma
