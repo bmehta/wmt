@@ -2,7 +2,7 @@
     <div class="card">
         <img class="card-img-left" src="{{vm.searchResult.mediumImage}}"/>
         <h4 class="card-title">{{vm.searchResult.name}}</h4>
-        <h6 class="card-subtitle">Price: {{vm.searchResult.salePrice}}</h6>
+        <h6 class="card-subtitle">{{vm.searchResult.salePrice|currency}}</h6>
         <div ng-bind-html="vm.renderHTML(vm.searchResult.longDescription)"></div>
     </div>
 </div>
