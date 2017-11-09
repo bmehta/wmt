@@ -1,5 +1,4 @@
-# `wmt` — the Walmart Product Search Single Page application
-
+# `wmt` — the Walmart Product Search Single Page application built using AngularJS
 
 ## Getting Started
 
