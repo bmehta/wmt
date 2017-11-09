@@ -1,14 +1,12 @@
-<div><a href='http://www.walmart.com', target='_blank'><img src="" alt="Walmart"></a></div>
-<h1>Products application</h1>
-<div></div>
-<div>
-    <div>
-        <div>Product Details</div>
-        <div>Name: {{vm.searchResult.name}}</div>
-        <div>Price: {{vm.searchResult.salePrice}}</div>
-        <div>Description:</div>
+<div class="row" style="margin-top:20px">
+    <div class="card">
+        <img class="card-img-left" src="{{vm.searchResult.mediumImage}}"/>
+        <h4 class="card-title">{{vm.searchResult.name}}</h4>
+        <h6 class="card-subtitle">Price: {{vm.searchResult.salePrice}}</h6>
         <div ng-bind-html="vm.renderHTML(vm.searchResult.longDescription)"></div>
     </div>
+</div>
+<div class="row" style="margin-top:20px">
     <div ng-if="vm.recommendations.length > 0">
         <div>Recommendations</div>
         <div ng-repeat="recommendation in vm.recommendations" style="border: 1px solid darkgray">
