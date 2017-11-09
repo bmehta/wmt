@@ -3,17 +3,25 @@
         <img class="card-img-left" src="{{vm.searchResult.mediumImage}}"/>
         <h4 class="card-title">{{vm.searchResult.name}}</h4>
         <h6 class="card-subtitle">{{vm.searchResult.salePrice|currency}}</h6>
-        <div class="card-text" ng-bind-html="vm.renderHTML(vm.searchResult.longDescription)"></div>
+        <div class="card-text" ng-bind-html="vm.renderHTML(vm.searchResult.longDescription)" style="max-height:100px; overflow-y:auto"></div>
     </div>
 </div>
-<div class="row" style="margin-top:20px">
-    <div ng-if="vm.recommendations.length > 0">
-        <div>Recommendations</div>
-        <div ng-repeat="recommendation in vm.recommendations" style="border: 1px solid darkgray">
-            <a ng-href="#!/detail/{{recommendation.itemId}}">
-                <span ng-click="detail">Name: {{recommendation.name}}</span>
-                <span>Sale Price: {{recommendation.salePrice}}</span>
-            </a>
+<div class="col-md-12" ng-if="vm.error" style="margin-top:20px;">An error occured trying to fetch recommendations.</div>
+<div class="col-md-12" ng-if="vm.noRecommendationsFound" style="margin-top:20px">
+    No related recommendations found.
+</div>
+<div class="col-md-12">
+    <h1>Recommended Products</h1>
+</div>
+<div class="col-md-12" ng-if="!vm.loadingRecommendations" style="margin-top:10px">
+    <div ng-repeat="recommendation in vm.recommendations" class="media" >
+        <div class="media-left">
+            <a href="#!/detail/{{recommendation.itemId}}"><img class="media-object" src="{{recommendation.thumbnailImage}}"></a>
+        </div>
+        <div class="media-body">
+            <h4 class="media-heading"><a class="a-media" href="#!/detail/{{recommendation.itemId}}">{{recommendation.name}}</a></h4>
+            <div>{{recommendation.salePrice | currency}}</div>
+            <div ng-bind-html="vm.renderHTML(recommendation.longDescription)" style="max-height:100px;"></div>
         </div>
     </div>
 </div>

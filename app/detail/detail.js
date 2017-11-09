@@ -9,12 +9,14 @@ angular.module('myApp.detail', ['ngRoute'])
         });
     }])
 
-    .controller('DetailCtrl', ['$scope', '$sce', 'dataService', 'cacheService', '$routeParams', function ($scope, $sce, dataService, cacheService, $routeParams) {
+    .controller('DetailCtrl', ['$sce', 'dataService', 'cacheService', '$routeParams', function ($sce, dataService, cacheService, $routeParams) {
         var vm = this;
         var itemId = parseInt($routeParams.itemid);
         console.log('itemid: ' + itemId);
         vm.searchResult = {};
         vm.recommendations = [];
+        vm.noRecommendationsFound = false;
+        vm.error = false;
 
         vm.getRecommendations = function() {
             dataService.getRecommendations(vm.searchResult.itemId)
