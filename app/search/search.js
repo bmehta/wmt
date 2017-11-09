@@ -9,7 +9,7 @@ angular.module('myApp.search', ['ngRoute'])
         });
     }])
 
-    .controller('SearchCtrl', ['$scope', '$http', '$q', '$timeout', '$sce', 'dataService', 'cacheService', function ($scope, $http, $q, $timeout, $sce,  dataService, cacheService) {
+    .controller('SearchCtrl', ['$q', '$timeout', '$sce', 'dataService', 'cacheService', function ($q, $timeout, $sce,  dataService, cacheService) {
         var vm = this;
         vm.loading = false;
         vm.searchQuery = cacheService.getSearchTerm();

@@ -1,18 +1,24 @@
 <div class="row" style="margin-top:20px">
     <div class="card">
-        <img class="card-img-left" src="{{vm.searchResult.mediumImage}}"/>
-        <h4 class="card-title">{{vm.searchResult.name}}</h4>
-        <h6 class="card-subtitle">{{vm.searchResult.salePrice|currency}}</h6>
+        <img class="card-img-left" src="{{vm.searchResult.largeImage}}"/>
+        <h2 class="card-title" style="color:#2577C1">{{vm.searchResult.name}}</h2>
+        <img src ="{{vm.searchResult.customerRatingImage}}"/>
+        <h5 class="card-subtitle">Price: {{vm.searchResult.salePrice|currency}}</h5>
+        <h6>
+            Free Ship to store: <span ng-if="vm.searchResult.freeShipToStore">Yes</span><span ng-if="!vm.searchResult.freeShipToStore">No</span>
+        </h6>
+
         <div class="card-text" ng-bind-html="vm.renderHTML(vm.searchResult.longDescription)" style="max-height:200px; overflow-y:auto"></div>
     </div>
 </div>
 <div class="col-md-12" ng-if="vm.error" style="margin-top:20px;">An error occured trying to fetch recommendations.</div>
-<div class="col-md-12" ng-if="vm.noRecommendationsFound" style="margin-top:20px">
-    No related recommendations found.
-</div>
+
 <div class="col-md-12">
     <fieldset class="fieldset-reco">
         <legend class="fieldset-reco">Recommended Products</legend>
+        <div ng-if="vm.noRecommendationsFound">
+            None found.
+        </div>
 
         <div ng-if="!vm.loadingRecommendations" style="margin-top:10px">
             <div ng-repeat="recommendation in vm.recommendations" class="media" >
@@ -20,9 +26,9 @@
                     <a href="#!/detail/{{recommendation.itemId}}"><img class="media-object" src="{{recommendation.thumbnailImage}}"></a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading"><a class="a-media" href="#!/detail/{{recommendation.itemId}}">{{recommendation.name}}</a></h4>
+                    <h5 class="media-heading"><a class="a-media" href="#!/detail/{{recommendation.itemId}}">{{recommendation.name}}</a></h5>
                     <div>{{recommendation.salePrice | currency}}</div>
-                    <div ng-bind-html="vm.renderHTML(recommendation.longDescription)" style="max-height:200px;"></div>
+                    <div ng-bind-html="vm.renderHTML(recommendation.longDescription)" style="max-height:100px;overflow-y:auto"></div>
                 </div>
             </div>
         </div>

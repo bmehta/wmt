@@ -21,7 +21,7 @@ angular.module('myApp.detail', ['ngRoute'])
         vm.getRecommendations = function() {
             dataService.getRecommendations(vm.searchResult.itemId)
                 .then(function(res){
-                    vm.recommendations = res.data;
+                    vm.recommendations = res.data.slice(0,10);
                 }, function(error){
                     console.error('Could not get recommendations: ' + JSON.stringify(error));
                 })

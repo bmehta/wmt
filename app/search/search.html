@@ -23,8 +23,8 @@
             </div>
             <div class="media-body">
                 <h4 class="media-heading"><a class="a-media" href="#!/detail/{{searchResult.itemId}}">{{searchResult.name}}</a></h4>
-                <div>{{searchResult.salePrice | currency}}</div>
-                <div ng-bind-html="vm.renderHTML(searchResult.longDescription)" style="max-height:100px;"></div>
+                <div>Price: {{searchResult.salePrice | currency}}</div>
+                <div ng-bind-html="vm.renderHTML(searchResult.shortDescription)" style="max-height:100px;overflow-y:auto"></div>
             </div>
         </div>
     </div>
