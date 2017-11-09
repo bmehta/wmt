@@ -1,10 +1,22 @@
-<div>
-    <div>
+<div class="row" style="margin-top:10px">
+    <div class="col-md-12">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search" id="txtSearch"/>
+            <div class="input-group-btn">
+                <button class="btn btn-primary" ng-click="vm.searchProducts()">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!--
+    <div class="col-md-12">
         <span><input type="text" ng-model="vm.searchQuery"/></span>
         <span>
             <button id="btnSearch" ng-click="vm.searchProducts()">Search</button>
         </span>
     </div>
+    -->
     <div ng-if="vm.loading">
         Loading Results....
     </div>
