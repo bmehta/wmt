@@ -18,7 +18,7 @@ describe('my app', function() {
     });
 
     
-    it('should render view when user navigates to /view', function() {
+    it('should render view when user navigates to /search', function() {
       expect(element.all(by.css('h1')).first().getText()).
         toMatch(/Walmart Product Search/);
     });
