@@ -9,19 +9,24 @@ angular.module('myApp.search', ['ngRoute'])
         });
     }])
 
-    .controller('SearchCtrl', ['$scope', '$http', '$q', '$timeout', 'dataService', 'cacheService', function ($scope, $http, $q, $timeout, dataService, cacheService) {
+    .controller('SearchCtrl', ['$scope', '$http', '$q', '$timeout', '$sce', 'dataService', 'cacheService', function ($scope, $http, $q, $timeout, $sce,  dataService, cacheService) {
         var vm = this;
         vm.loading = false;
         vm.searchQuery = cacheService.getSearchTerm();
         //vm.searchResults = [];
         vm.detailedSearchResults = cacheService.getSearchResults();
+        vm.noResultsFound = false;
+        vm.error = false;
 
         vm.searchProducts = function() {
             vm.detailedSearchResults = [];
             vm.loading = true;
+            vm.error = false;
+            vm.noResultsFound = false;
           dataService.getSearch(vm.searchQuery)
               .then(function(result){
                   var searchResults = result.data.items;
+                  vm.noResultsFound = searchResults.length === 0;
 
                   var throttleNeeded = searchResults.length > 5; // Add throttle because walmart apis only allow 5 requests per second
                   var loopSize = throttleNeeded? 5: searchResults.length;
@@ -58,17 +63,28 @@ angular.module('myApp.search', ['ngRoute'])
 
                               }, function(error){
                                   console.log('Could not fetch detailed search results: ' + JSON.stringify(error));
+                                  vm.loading = false;
+                                  vm.error = true;
                               });
                           }, 2000 );
                       }
 
                   }, function(error){
                       console.log('Could not fetch detailed search results: ' + JSON.stringify(error));
+                      vm.loading = false;
+                      vm.error = true;
                   });
 
               }, function(error){
                   console.log('Could not perform search: ' + JSON.stringify(error));
               })
+        };
+
+        vm.renderHTML = function(html_code)
+        {
+            //return $sce.trustAsHtml(html_code);
+            var decoded = angular.element('<textarea />').html(html_code).text();
+            return $sce.trustAsHtml(decoded);
         };
 
     }]);
