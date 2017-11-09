@@ -1,7 +1,7 @@
 <div class="row" style="margin-top:10px">
     <div class="col-md-12">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search" id="txtSearch"/>
+            <input type="text" class="form-control" placeholder="Search" id="txtSearch" ng-model="vm.searchQuery"/>
             <div class="input-group-btn">
                 <button class="btn btn-primary" ng-click="vm.searchProducts()">
                     <span class="glyphicon glyphicon-search"></span>
@@ -9,15 +9,7 @@
             </div>
         </div>
     </div>
-    <!--
-    <div class="col-md-12">
-        <span><input type="text" ng-model="vm.searchQuery"/></span>
-        <span>
-            <button id="btnSearch" ng-click="vm.searchProducts()">Search</button>
-        </span>
-    </div>
-    -->
-    <div ng-if="vm.loading">
+    <div class="loader" ng-if="vm.loading">
         Loading Results....
     </div>
     <div ng-if="!vm.loading">
@@ -31,15 +23,5 @@
             </div>
         </div>
     </div>
-    <!--
-    <div class="div-space align-center" ng-if="!vm.loading">
-        <div ng-repeat="searchResult in vm.detailedSearchResults" style="border: 1px solid darkgray">
-            <a ng-href="#!/detail/{{searchResult.itemId}}">
-                <span ng-click="detail">Name: {{searchResult.name}}</span>
-                <span>Sale Price: {{searchResult.salePrice}}</span>
-            </a>
-        </div>
-    </div>
-    -->
 
 </div>
