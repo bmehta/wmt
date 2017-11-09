@@ -1,24 +1,24 @@
-# `gannett-ui` — the UI for the Gannett application
+# `wmt` — the Walmart Product Search Single Page application
 
 
 ## Getting Started
 
-To get you started you can simply clone the `gannett-ui` repository and install the dependencies:
+To get you started you can simply clone the `wmt` repository and install the dependencies:
 
 ### Prerequisites
 
-You need git to clone the `gannett-ui` repository. You can get git from [here][git].
+You need git to clone the `wmt` repository.
 
-We also use a number of Node.js tools to initialize and test `gannett-ui`. You must have Node.js
+We also use a number of Node.js tools to initialize and test `wmt`. You must have Node.js
 and its package manager (npm) installed. You can get them from [here][node].
 
-### Clone `gannett-ui`
+### Clone `wmt`
 
-Clone the `gannett-ui` repository using git:
+Clone the `wmt` repository using git:
 
 ```
-git clone https://github.com/bmehta/gannett-ui.git
-cd gannett-ui
+git clone https://github.com/bmehta/wmt.git
+cd wmt
 ```
 
 ### Install Dependencies
@@ -36,7 +36,7 @@ two new folders in your project.
 * `app/bower_components` - contains the Angular framework files
 
 *Note that the `bower_components` folder would normally be installed in the root folder but
-`gannett-ui` changes this location through the `.bowerrc` file. Putting it in the `app` folder
+`wmt` changes this location through the `.bowerrc` file. Putting it in the `app` folder
 makes it easier to serve the files by a web server.*
 
 ### Run the Application
@@ -74,13 +74,13 @@ e2e-tests/            --> end-to-end tests
 
 ## Testing
 
-There are two kinds of tests in the `gannett-ui` application: Unit tests and end-to-end tests.
+There are two kinds of tests in the `wmt` application: Unit tests and end-to-end tests.
 
 ### Running Unit Tests
 
 * The configuration is found at `karma.conf.js`.
 * The unit tests are found next to the code they are testing and have an `_test.js` suffix (e.g.
-  `view_test.js`).
+  `detail_test.js`).
 
 The easiest way to run the unit tests is to use the supplied npm script:
 

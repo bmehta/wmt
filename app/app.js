@@ -3,14 +3,15 @@
 /*
 TODO
 - unit tests
-- better UI using bootstrap
+*- better UI using bootstrap
 - e2e tests
+- README.md
 - CORS error for recommendations api (document)
+ - Move out CSS styles to app.css
 - product lookup and throttling for recommendations
-- handle no recommendations errors - nbp?apiKey=d9nr24chkrrd9p4sgck8v5ub&itemId=14871803
-- Move out CSS styles to app.css
+*- handle no recommendations errors - nbp?apiKey=d9nr24chkrrd9p4sgck8v5ub&itemId=14871803
 - footer
-- add more details to details page
+*- add more details to details page
 *- limit to 10 recommendations
  */
 
