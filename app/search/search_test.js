@@ -3,46 +3,35 @@
 describe('myApp.search module', function() {
 
     var dataService;
+    var cacheService;
 
     beforeEach(module('myApp.search'));
 
     // Tests for the view controller
-    describe('view controller tests', function(){
+    describe('search controller tests', function(){
 
         it('should inject mock data service and expect definitions', inject(function($controller, $rootScope, $q) {
             //mock the dataService
             dataService = {
-                getTotal: function(){return $q.when(3)},
-                getFibonacci: function(){return $q.when([0,1,1,2,3])},
-                getHistory: function(){return $q.when([1,2])},
-                doPost: function(){return $q.when()}
+                getSearch: function(query){return $q.when({query: 'toaster', itemCount:10 })},
+                getProductDetail: function(itemId){return $q.when({itemId: 12417832, name:'MLB'})},
+                getRecommendations: function(itemId){return $q.when([{itemId:49650093, name:'ASR'}, {itemId: 49650094, name: 'LCT'}])}
             };
 
-            var $scope = $rootScope.$new();
-            var viewCtrl = $controller('ViewCtrl', {$scope: $scope, dataService: dataService});
+            cacheService = {
+                getSearchTerm: function(){return 'soap'},
+                getSearchResult: function(itemId){return {itemId:49650093, name:'ASR'}},
+                getSearchResults: function(){return [{itemId:49650093, name:'ASR'}, {itemId: 49650094, name: 'LCT'}]}
+            };
 
-            expect(viewCtrl).toBeDefined();
-            expect(viewCtrl.fibonacciNumbers).toBeDefined();
-            expect(viewCtrl.history).toBeDefined();
-            expect(viewCtrl.trackSelected).toBeDefined();
+            var searchCtrl = $controller('SearchCtrl', {dataService: dataService, cacheService: cacheService});
 
-            viewCtrl.request1().then(function(){
-                expect(viewCtrl.fibonacciNumbers).toBe([0,1,1,2,3]);
-            });
-
-            viewCtrl.request2().then(function(){
-                expect(viewCtrl.currentTotal).toBe(3);
-            });
-
-            viewCtrl.request3().then(function(){
-                expect(viewCtrl.history).toBe([1,2]);
-            });
-
-            viewCtrl.selectedNumber = 3;
-
-            viewCtrl.trackSelected().then(function(){
-                expect(viewCtrl.currentTotal.toBe(6));
-                expect(viewCtrl.history).toBe([1,2,3]);
+            expect(searchCtrl).toBeDefined();
+            expect(searchCtrl.searchQuery).toBeDefined();
+            expect(searchCtrl.detailedSearchResults).toBeDefined();
+            expect(searchCtrl.searchProducts).toBeDefined();
+            searchCtrl.searchProducts().then(function(){
+                expect(vm.detailedSearchResults).toEqual({itemId: 12417832, name:'MLB'});
             })
 
         }));

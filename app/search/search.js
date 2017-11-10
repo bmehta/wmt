@@ -19,6 +19,7 @@ angular.module('myApp.search', ['ngRoute'])
         vm.error = false;
 
         vm.searchProducts = function() {
+            var deferred =$q.defer();
             vm.detailedSearchResults = [];
             vm.loading = true;
             vm.error = false;
@@ -52,6 +53,7 @@ angular.module('myApp.search', ['ngRoute'])
                           vm.detailedSearchResults = retArr;
                           cacheService.addSearchResults(retArr);
                           cacheService.addSearchTerm(vm.searchQuery);
+                          deferred.resolve(vm.detailedSearchResults)
                       } else {
                           $timeout( function(){
                               var searchResultHttp2 = [];
@@ -66,11 +68,13 @@ angular.module('myApp.search', ['ngRoute'])
                                   vm.detailedSearchResults = retArr;
                                   cacheService.addSearchResults(retArr);
                                   cacheService.addSearchTerm(vm.searchQuery);
+                                  deferred.resolve(vm.detailedSearchResults)
 
                               }, function(error){
                                   console.log('Could not fetch detailed search results: ' + JSON.stringify(error));
                                   vm.loading = false;
                                   vm.error = true;
+                                  deferred.reject(error);
                               });
                           }, 2000 );
                       }
@@ -79,11 +83,13 @@ angular.module('myApp.search', ['ngRoute'])
                       console.log('Could not fetch detailed search results: ' + JSON.stringify(error));
                       vm.loading = false;
                       vm.error = true;
+                      deferred.reject(error);
                   });
 
               }, function(error){
                   console.log('Could not perform search: ' + JSON.stringify(error));
-              })
+              });
+            return deferred.promise;
         };
 
         vm.renderHTML = function(html_code)
