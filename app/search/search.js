@@ -25,6 +25,12 @@ angular.module('myApp.search', ['ngRoute'])
             vm.noResultsFound = false;
           dataService.getSearch(vm.searchQuery)
               .then(function(result){
+
+                  if (result.data.numItems === 0) {
+                      vm.loading = false;
+                      vm.noResultsFound = true;
+                      return;
+                  }
                   var searchResults = result.data.items;
                   vm.noResultsFound = searchResults.length === 0;
 
