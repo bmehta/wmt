@@ -1,4 +1,4 @@
-# `wmt` — the "Walmart Product Search" responsive Single Page application built using AngularJS and bootstrap.
+# `wmt` — the "Walmart Product Search" responsive Single Page application built using AngularJS and Bootstrap.
 
 ## Getting Started
 
