@@ -28,7 +28,8 @@ body{
   color: #2577C1;
 }
 
-#loading{
+.loading{
+  text-align:center; margin-top:10px;
   -webkit-animation:spin 4s linear infinite;
   -moz-animation:spin 4s linear infinite;
   animation:spin 4s linear infinite;

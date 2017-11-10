@@ -1,4 +1,4 @@
-<div class="row" style="margin-top:10px">
+<div class="row margin-top">
     <div class="col-md-12">
         <div class="input-group">
             <input type="text" class="form-control" placeholder="Search" id="txtSearch" ng-model="vm.searchQuery"/>
@@ -9,8 +9,8 @@
             </div>
         </div>
     </div>
-    <div class="col-md-12" ng-if="vm.loading" style="text-align:center; margin-top:10px;" id="loading" alt="Loading...">
-        <img src="images/spark.jpg" class="loading-spinner"/>
+    <div class="col-md-12 loading" ng-if="vm.loading" alt="Loading...">
+        <img src="images/spark.jpg"/>
     </div>
     <div class="col-md-12 margin-top" ng-if="vm.noResultsFound">
         No results found for your search. Please try again.
