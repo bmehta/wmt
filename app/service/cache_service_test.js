@@ -26,7 +26,5 @@ describe('cacheService', function() {
 
         expect(cacheService.getSearchResult(49650094)).toEqual({itemId: 49650094, name: 'LCT'});
 
-
-
     });
 });
