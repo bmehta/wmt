@@ -19,6 +19,9 @@ angular.module('myApp.search', ['ngRoute'])
         vm.error = false;
 
         vm.searchProducts = function() {
+            if (vm.searchQuery.trim() === '') {
+                return;
+            }
             var deferred =$q.defer();
             vm.detailedSearchResults = [];
             vm.loading = true;

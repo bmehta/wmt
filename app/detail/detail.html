@@ -20,11 +20,11 @@
         <div ng-if="!vm.loading" style="margin-top:10px">
             <div ng-repeat="recommendation in vm.recommendations" class="media" >
                 <div class="media-left">
-                    <a href="#!/detail/{{recommendation.itemId}}"><img class="media-object" src="{{recommendation.thumbnailImage}}"></a>
+                    <a href="#!/detail/{{recommendation.itemId}}"><img *ngIf="recommendation.thumbnailImage" class="media-object" src="{{recommendation.thumbnailImage}}"></a>
                 </div>
                 <div class="media-body">
                     <h5 class="media-heading"><a class="a-media" href="#!/detail/{{recommendation.itemId}}">{{recommendation.name}}</a></h5>
-                    <img src ="{{recommendation.customerRatingImage}}"/>
+                    <img *ngIf="recommendation.customerRatingImage" src ="{{recommendation.customerRatingImage}}"/>
                     <div>{{recommendation.salePrice | currency}}</div>
                     <div ng-bind-html="vm.renderHTML(recommendation.longDescription)" style="max-height:100px;overflow-y:auto"></div>
                 </div>
