@@ -26,6 +26,7 @@ angular.module('myApp.detail', ['ngRoute'])
                 .then(function(res){
                     if (res.data.errors || !res.data || res.data.length === 0) {
                        vm.noRecommendationsFound = true;
+                        vm.loading = false;
                     }
                     else {
                         if (res.data && res.data.length > 10) {
