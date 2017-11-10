@@ -11,6 +11,10 @@ You need git to clone the `wmt` repository.
 We also use a number of Node.js tools to initialize and test `wmt`. You must have Node.js
 and its package manager (npm) installed. You can get them from [here][node].
 
+You will need a way to bypass browser CORS limitation for the Walmart Labs Recommendation API. The way to get around CORS is JSONP. The JSONP implementation for the response of the recommendations call is incorrect, and hence we need a way to get around it.
+Perform testing in Chrome after installing the extension "https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en". Add a URL pattern to it - "http://*/*".
+The JSONP workaround works just fine for the Search and Product Lookup API calls.
+
 ### Clone `wmt`
 
 Clone the `wmt` repository using git:
@@ -57,6 +61,7 @@ app/                    --> all of the source files for the application
   app.css               --> default stylesheet
   service/           --> all app specific services
       cache-service.js     --> caching service
+      cache-service_test.js --> tests for the cache service
       data-service.js      --> data service
       data-service_test.js --> tests for the data service
   detail/                --> the detail view template and logic
