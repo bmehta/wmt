@@ -1,4 +1,4 @@
-<div class="row" style="margin-top:20px">
+<div class="row margin-top">
     <div class="card">
         <img class="card-img-left" src="{{vm.searchResult.largeImage}}"/>
         <h2 class="card-title" style="color:#2577C1">{{vm.searchResult.name}}</h2>
@@ -8,16 +8,16 @@
             Free Ship to store: <span ng-if="vm.searchResult.freeShipToStore">Yes</span><span ng-if="!vm.searchResult.freeShipToStore">No</span>
         </h6>
 
-        <div class="card-text" ng-bind-html="vm.renderHTML(vm.searchResult.longDescription)" style="max-height:200px; overflow-y:auto"></div>
+        <div class="card-text detail-description" ng-bind-html="vm.renderHTML(vm.searchResult.longDescription)"></div>
     </div>
 </div>
-<div class="col-md-12" ng-if="vm.error" style="margin-top:20px;">An error occured trying to fetch recommendations.</div>
+<div class="col-md-12 margin-top" ng-if="vm.error">An error occured trying to fetch recommendations.</div>
 
 <div class="col-md-12">
     <fieldset class="fieldset-reco">
         <legend class="fieldset-reco">Recommended Products</legend>
 
-        <div ng-if="!vm.loading" style="margin-top:10px">
+        <div ng-if="!vm.loading" class="margin-top">
             <div ng-repeat="recommendation in vm.recommendations" class="media" >
                 <div class="media-left">
                     <a href="#!/detail/{{recommendation.itemId}}"><img *ngIf="recommendation.thumbnailImage" class="media-object" src="{{recommendation.thumbnailImage}}"></a>
@@ -26,7 +26,7 @@
                     <h5 class="media-heading"><a class="a-media" href="#!/detail/{{recommendation.itemId}}">{{recommendation.name}}</a></h5>
                     <img *ngIf="recommendation.customerRatingImage" src ="{{recommendation.customerRatingImage}}"/>
                     <div>{{recommendation.salePrice | currency}}</div>
-                    <div ng-bind-html="vm.renderHTML(recommendation.longDescription)" style="max-height:100px;overflow-y:auto"></div>
+                    <div class="search-description" ng-bind-html="vm.renderHTML(recommendation.longDescription)"></div>
                 </div>
             </div>
         </div>
