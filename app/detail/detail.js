@@ -19,7 +19,7 @@ angular.module('myApp.detail', ['ngRoute'])
         vm.error = false;
 
         vm.getRecommendations = function() {
-            dataService.getRecommendations(vm.searchResult.itemId)
+            return dataService.getRecommendations(vm.searchResult.itemId)
                 .then(function(res){
                     if (res.data.errors || !res.data || res.data.length === 0) {
                        vm.noRecommendationsFound = true;
