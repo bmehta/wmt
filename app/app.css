@@ -58,3 +58,12 @@ legend.fieldset-reco {
   padding:0 10px;
   border-bottom:none;
 }
+
+.margin-top {
+  margin-top:20px;
+}
+
+.search-description {
+  max-height:100px;
+  overflow-y:auto;
+}
