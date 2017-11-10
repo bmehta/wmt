@@ -9,6 +9,7 @@ angular.module('myApp.search', ['ngRoute'])
         });
     }])
 
+    // Define the search controller
     .controller('SearchCtrl', ['$q', '$sce', 'dataService', 'cacheService', function ($q, $sce,  dataService, cacheService) {
         var vm = this;
         vm.loading = false;
@@ -18,6 +19,7 @@ angular.module('myApp.search', ['ngRoute'])
         vm.noResultsFound = false;
         vm.error = false;
 
+        // function to search for products
         vm.searchProducts = function() {
             if (vm.searchQuery.trim() === '') {
                 return;
@@ -27,10 +29,10 @@ angular.module('myApp.search', ['ngRoute'])
             vm.loading = true;
             vm.error = false;
             vm.noResultsFound = false;
-          dataService.getSearch(vm.searchQuery)
+          dataService.getSearch(vm.searchQuery) // call dataService to perform search
               .then(function(result){
 
-                  if (result.data.numItems === 0) {
+                  if (result.data.numItems === 0) { // handle case for 0 results
                       vm.loading = false;
                       vm.noResultsFound = true;
                       return;
@@ -39,7 +41,7 @@ angular.module('myApp.search', ['ngRoute'])
                   var productIds = searchResults.map(s => s.itemId);
                   console.log('productIds: '+ productIds);
 
-                  dataService.getDetailsForProducts(productIds)
+                  dataService.getDetailsForProducts(productIds) // call dataService to get details for each product
                       .then(function(returnSearchResults){
                           vm.loading = false;
                           vm.detailedSearchResults = returnSearchResults;

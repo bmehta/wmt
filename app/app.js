@@ -4,13 +4,10 @@
 TODO
 
 - README.md
- - Move out CSS styles to app.css
  - read api documentation
-- product lookup and throttling for recommendations
 - comments
 - utility service
 - footer
-- remove bower_components from github
  */
 
 // Declare app level module which depends on views, and components
