@@ -15,8 +15,8 @@ describe('dataService', function() {
         $httpBackend.verifyNoOutstandingRequest();
     });
 
-    // Tests for the data service
-    it ('calls http backend to get data', function() {
+    // Tests for the data service http calls
+    it ('dataService http call tests', function() {
         var urlBase = 'http://api.walmartlabs.com/v1';
         var apiKey = 'd9nr24chkrrd9p4sgck8v5ub';
         var jsonp = 'callback=JSON_CALLBACK';
