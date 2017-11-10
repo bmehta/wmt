@@ -9,7 +9,8 @@ angular.module('myApp.detail', ['ngRoute'])
         });
     }])
 
-    .controller('DetailCtrl', ['$q', '$sce', 'dataService', 'cacheService', '$routeParams', function ($q, $sce, dataService, cacheService, $routeParams) {
+    // Define the detail controller
+    .controller('DetailCtrl', ['$q', '$window', '$sce', 'dataService', 'cacheService', '$routeParams', function ($q, $window, $sce, dataService, cacheService, $routeParams) {
         var vm = this;
         var itemId = parseInt($routeParams.itemid);
         console.log('itemid: ' + itemId);
@@ -22,7 +23,7 @@ angular.module('myApp.detail', ['ngRoute'])
 
         vm.getRecommendations = function() {
             var deferred =$q.defer();
-            dataService.getRecommendations(vm.searchResult.itemId)
+            dataService.getRecommendations(vm.searchResult.itemId) // Call dataService to get recommendations
                 .then(function(res){
                     if (res.data.errors || !res.data || res.data.length === 0) {
                        vm.noRecommendationsFound = true;
@@ -58,7 +59,7 @@ angular.module('myApp.detail', ['ngRoute'])
             return deferred.promise;
         };
 
-        vm.init = function() {
+        vm.init = function() { // Initialize
             vm.searchResult = cacheService.getSearchResult(itemId);
             console.log('searchResult: ' + JSON.stringify(vm.searchResult));
             if (!vm.searchResult) {
@@ -80,7 +81,11 @@ angular.module('myApp.detail', ['ngRoute'])
 
         vm.init();
 
-        vm.renderHTML = function(html_code){
+        vm.goBack = function() {
+          $window.history.back();
+        };
+
+        vm.renderHTML = function(html_code){ // Function to decode html
             if (html_code){
                 var decoded = angular.element('<textarea />').html(html_code).text();
                 return $sce.trustAsHtml(decoded);

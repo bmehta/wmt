@@ -60,7 +60,7 @@ angular.module('myApp.search', ['ngRoute'])
             return deferred.promise;
         };
 
-        vm.renderHTML = function(html_code)
+        vm.renderHTML = function(html_code) // Function to decode html
         {
             if (html_code) {
                 var decoded = angular.element('<textarea />').html(html_code).text();
