@@ -11,6 +11,7 @@ TODO
 - utility service
 - footer
 - read api documentation
+- remove bower_components from github
  */
 
 // Declare app level module which depends on views, and components
