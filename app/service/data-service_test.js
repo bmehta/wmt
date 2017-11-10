@@ -49,6 +49,10 @@ describe('dataService', function() {
             expect(result.data).toEqual(recommendationsResponse);
         });
 
+        dataService.getDetailsForProducts([12417832]).then(function(result){
+            expect(result[0].data).toEqual({itemId: 12417832, name:'MLB'});
+        });
+
         $httpBackend.flush();
 
     });

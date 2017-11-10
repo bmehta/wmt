@@ -9,7 +9,7 @@ angular.module('myApp.search', ['ngRoute'])
         });
     }])
 
-    .controller('SearchCtrl', ['$q', '$timeout', '$sce', 'dataService', 'cacheService', function ($q, $timeout, $sce,  dataService, cacheService) {
+    .controller('SearchCtrl', ['$q', '$sce', 'dataService', 'cacheService', function ($q, $sce,  dataService, cacheService) {
         var vm = this;
         vm.loading = false;
         vm.searchQuery = cacheService.getSearchTerm();
@@ -33,59 +33,22 @@ angular.module('myApp.search', ['ngRoute'])
                       return;
                   }
                   var searchResults = result.data.items;
-                  vm.noResultsFound = searchResults.length === 0;
+                  var productIds = searchResults.map(s => s.itemId);
+                  console.log('productIds: '+ productIds);
 
-                  var throttleNeeded = searchResults.length > 5; // Add throttle because walmart apis only allow 5 requests per second
-                  var loopSize = throttleNeeded? 5: searchResults.length;
-
-                  var searchResultHttp = [];
-                  for (var i=0; i< loopSize; i++) {
-                      searchResultHttp.push(dataService.getProductDetail(searchResults[i].itemId));
-                  }
-                  var retArr = [];
-                  $q.all(searchResultHttp).then(function (ret) {
-                      for (var i = 0; i< ret.length; i++){
-                          retArr.push(ret[i].data);
-                      }
-
-                      if (!throttleNeeded) {
+                  dataService.getDetailsForProducts(productIds)
+                      .then(function(returnSearchResults){
                           vm.loading = false;
-                          vm.detailedSearchResults = retArr;
-                          cacheService.addSearchResults(retArr);
+                          vm.detailedSearchResults = returnSearchResults;
+                          cacheService.addSearchResults(returnSearchResults);
                           cacheService.addSearchTerm(vm.searchQuery);
                           deferred.resolve(vm.detailedSearchResults)
-                      } else {
-                          $timeout( function(){
-                              var searchResultHttp2 = [];
-                              for (var i=5; i< searchResults.length; i++) {
-                                  searchResultHttp2.push(dataService.getProductDetail(searchResults[i].itemId));
-                              }
-                              $q.all(searchResultHttp2).then(function (ret) {
-                                  for (var i = 0; i< ret.length; i++){
-                                      retArr.push(ret[i].data);
-                                  }
-                                  vm.loading = false;
-                                  vm.detailedSearchResults = retArr;
-                                  cacheService.addSearchResults(retArr);
-                                  cacheService.addSearchTerm(vm.searchQuery);
-                                  deferred.resolve(vm.detailedSearchResults)
-
-                              }, function(error){
-                                  console.log('Could not fetch detailed search results: ' + JSON.stringify(error));
-                                  vm.loading = false;
-                                  vm.error = true;
-                                  deferred.reject(error);
-                              });
-                          }, 2000 );
-                      }
-
-                  }, function(error){
-                      console.log('Could not fetch detailed search results: ' + JSON.stringify(error));
-                      vm.loading = false;
-                      vm.error = true;
-                      deferred.reject(error);
-                  });
-
+                      }, function(error){
+                          console.log('Could not fetch detailed search results: ' + JSON.stringify(error));
+                          vm.loading = false;
+                          vm.error = true;
+                          deferred.reject(error);
+                      });
               }, function(error){
                   console.log('Could not perform search: ' + JSON.stringify(error));
               });
