@@ -1,15 +1,5 @@
 'use strict';
 
-/*
-TODO
-
-- README.md
- - read api documentation
-- comments
-- utility service
-- footer
- */
-
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
   'ngRoute',
