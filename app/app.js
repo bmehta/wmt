@@ -4,13 +4,12 @@
 TODO
 
 - README.md
-- CORS error for recommendations api (document)
  - Move out CSS styles to app.css
+ - read api documentation
 - product lookup and throttling for recommendations
 - comments
 - utility service
 - footer
-- read api documentation
 - remove bower_components from github
  */
 
