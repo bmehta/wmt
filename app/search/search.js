@@ -14,7 +14,6 @@ angular.module('myApp.search', ['ngRoute'])
         var vm = this;
         vm.loading = false;
         vm.searchQuery = cacheService.getSearchTerm();
-        //vm.searchResults = [];
         vm.detailedSearchResults = cacheService.getSearchResults();
         vm.noResultsFound = false;
         vm.error = false;
