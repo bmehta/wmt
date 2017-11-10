@@ -9,17 +9,20 @@ angular.module('myApp.detail', ['ngRoute'])
         });
     }])
 
-    .controller('DetailCtrl', ['$sce', 'dataService', 'cacheService', '$routeParams', function ($sce, dataService, cacheService, $routeParams) {
+    .controller('DetailCtrl', ['$q', '$sce', 'dataService', 'cacheService', '$routeParams', function ($q, $sce, dataService, cacheService, $routeParams) {
         var vm = this;
         var itemId = parseInt($routeParams.itemid);
         console.log('itemid: ' + itemId);
         vm.searchResult = {};
         vm.recommendations = [];
+        vm.detailedRecommendations = [];
         vm.noRecommendationsFound = false;
         vm.error = false;
+        vm.loading = true;
 
         vm.getRecommendations = function() {
-            return dataService.getRecommendations(vm.searchResult.itemId)
+            var deferred =$q.defer();
+            dataService.getRecommendations(vm.searchResult.itemId)
                 .then(function(res){
                     if (res.data.errors || !res.data || res.data.length === 0) {
                        vm.noRecommendationsFound = true;
@@ -30,12 +33,28 @@ angular.module('myApp.detail', ['ngRoute'])
                         } else{
                             vm.recommendations = res.data;
                         }
+                        var productIds = vm.recommendations.map(s => s.itemId);
+                        dataService.getDetailsForProducts(productIds)
+                            .then(function(returnSearchResults){
+                                vm.loading = false;
+                                vm.detailedSearchResults = returnSearchResults;
+                                
+                                deferred.resolve(vm.detailedSearchResults)
+                            }, function(error){
+                                console.log('Could not fetch detailed search results: ' + JSON.stringify(error));
+                                vm.loading = false;
+                                vm.error = true;
+                                deferred.reject(error);
+                            });
                     }
 
                 }, function(error){
+                    vm.loading = false;
                     vm.error = true;
                     console.error('Could not get recommendations: ' + JSON.stringify(error));
-                })
+                    deferred.reject(error);
+                });
+            return deferred.promise;
         };
 
         vm.init = function() {

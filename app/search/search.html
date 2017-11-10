@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="col-md-12" ng-if="vm.loading" style="text-align:center; margin-top:10px;" id="loading" alt="Loading...">
-        <img src="images/spark.jpg" id="loading-spinner"/>
+        <img src="images/spark.jpg" class="loading-spinner"/>
     </div>
     <div class="col-md-12" ng-if="vm.noResultsFound" style="margin-top:20px">
         No results found for your search. Please try again.
@@ -23,6 +23,7 @@
             </div>
             <div class="media-body">
                 <h4 class="media-heading"><a class="a-media" href="#!/detail/{{searchResult.itemId}}">{{searchResult.name}}</a></h4>
+                <img src ="{{searchResult.customerRatingImage}}"/>
                 <div>Price: {{searchResult.salePrice | currency}}</div>
                 <div ng-bind-html="vm.renderHTML(searchResult.shortDescription)" style="max-height:100px;overflow-y:auto"></div>
             </div>

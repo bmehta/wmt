@@ -51,6 +51,7 @@ angular.module('myApp.search', ['ngRoute'])
                       });
               }, function(error){
                   console.log('Could not perform search: ' + JSON.stringify(error));
+                  deferred.reject(error);
               });
             return deferred.promise;
         };

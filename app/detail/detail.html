@@ -16,21 +16,25 @@
 <div class="col-md-12">
     <fieldset class="fieldset-reco">
         <legend class="fieldset-reco">Recommended Products</legend>
-        <div ng-if="vm.noRecommendationsFound">
-            None found.
-        </div>
 
-        <div ng-if="!vm.loadingRecommendations" style="margin-top:10px">
+        <div ng-if="!vm.loading" style="margin-top:10px">
             <div ng-repeat="recommendation in vm.recommendations" class="media" >
                 <div class="media-left">
                     <a href="#!/detail/{{recommendation.itemId}}"><img class="media-object" src="{{recommendation.thumbnailImage}}"></a>
                 </div>
                 <div class="media-body">
                     <h5 class="media-heading"><a class="a-media" href="#!/detail/{{recommendation.itemId}}">{{recommendation.name}}</a></h5>
+                    <img src ="{{recommendation.customerRatingImage}}"/>
                     <div>{{recommendation.salePrice | currency}}</div>
                     <div ng-bind-html="vm.renderHTML(recommendation.longDescription)" style="max-height:100px;overflow-y:auto"></div>
                 </div>
             </div>
+        </div>
+        <div ng-if="vm.loading" style="text-align:center; margin-top:10px;" id="loading" alt="Loading...">
+            <img src="images/spark.jpg" class="loading-spinner"/>
+        </div>
+        <div ng-if="vm.noRecommendationsFound">
+            None found.
         </div>
     </fieldset>
 </div>
