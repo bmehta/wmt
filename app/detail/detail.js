@@ -61,8 +61,10 @@ angular.module('myApp.detail', ['ngRoute'])
         vm.init();
 
         vm.renderHTML = function(html_code){
-            var decoded = angular.element('<textarea />').html(html_code).text();
-            return $sce.trustAsHtml(decoded);
+            if (html_code){
+                var decoded = angular.element('<textarea />').html(html_code).text();
+                return $sce.trustAsHtml(decoded);
+            }
         }
 
     }]);

@@ -94,9 +94,10 @@ angular.module('myApp.search', ['ngRoute'])
 
         vm.renderHTML = function(html_code)
         {
-            //return $sce.trustAsHtml(html_code);
-            var decoded = angular.element('<textarea />').html(html_code).text();
-            return $sce.trustAsHtml(decoded);
+            if (html_code) {
+                var decoded = angular.element('<textarea />').html(html_code).text();
+                return $sce.trustAsHtml(decoded);
+            }
         };
 
     }]);
